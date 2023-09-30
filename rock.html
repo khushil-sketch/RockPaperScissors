@@ -11,8 +11,36 @@
 </head>
 
 <body>
-  <p>Hola Buenos Dias, vamos a jugar un jeugo llamado "Rock, Paper, Scissors"</p>
-  
+  <h2>Welcome! Pick your weapon of Choice!</h2>
+  <div class="player-choices">
+    <button class="rock">Rock</button>
+    <button class="paper">Paper</button>
+    <button class="scissor">Scissor</button>
+  </div>
+
+  <button class="play">Play Game</button>
+
+
+  <div class="game-standings">
+    <p class="result">Result: </p>
+    <p class="score">Score: </p>
+  </div>
+
+
+  <!-- Note: Instead of creating buttons, you could have used the input tags in HTML, which would have allowed to add event listeners via a loop instead of having duplicate code, as shown below -->
+
+  <input type="button" value="rock"></input>
+
+  <script>
+  const buttons = document.querySelectorAll('input')
+
+  buttons.forEach(button =>{
+    button.addEventListener('click', function(){
+        playRound(button.value)
+    })
+  })
+  </script>
+
 </body>
 
 </html>

@@ -6,13 +6,20 @@ function computerChoice(){
     // math.random generates a random number between 0 (inclusive) and 1 (exclusive)
     
     const randomIndex = Math.floor(Math.random() * choices.length);
-    console.log(randomIndex)
-    console.log(choices[randomIndex]);
     return choices[randomIndex];
 }
 
+let playerChoice;
+const rock = document.querySelector(".rock");
+rock.addEventListener("click", () => playerChoice = "rock");
 
-function playRound(playerSelection, computerSelection) {
+const paper = document.querySelector(".paper");
+paper.addEventListener("click", () => playerChoice = "paper");
+
+const scissor = document.querySelector(".scissor");
+scissor.addEventListener("click", () => playerChoice = "scissor");
+
+function playRound(normalizedPlayerSelection, normalizedComputerSelection) {
     
     if (normalizedPlayerSelection === "rock" && normalizedComputerSelection === "rock") {
         return 'Draw!';
@@ -57,26 +64,45 @@ function playRound(playerSelection, computerSelection) {
 // keeps score and reports a winner or loser at the end.
 
 function game() {
-    for (let i = 0; i < 5; i++){
-        
-        correct = false;
-        // Use an infinite loop to loop as many time as possible until the user enters the right input
-        while (correct === false) {
-            const playerSelection = prompt("Choose your weapon: Rock, Paper or Scissor!");
-            normalizedPlayerSelection = playerSelection.toLowerCase();
-            if (normalizedPlayerSelection === "rock" || normalizedPlayerSelection === "paper" || normalizedPlayerSelection === "scissor") {
-                correct = true;
-            }
-            else {
-                alert("Error, Choose the right weapon!");
-            }
+    
+    const computerSelection = computerChoice();
+    const playerSelection = playerChoice;
 
+    // Ensuring the player has pressed a button
+    while (true) {
+        if (playerSelection !== undefined) {
+            break;
         }
-   
-        const computerSelection = computerChoice();
-        normalizedComputerSelection = computerSelection.toLowerCase();
-        console.log(playRound(normalizedPlayerSelection, normalizedComputerSelection));
+        else {
+            alert("YO CHOOSE A WEAPON MAN");
+            break;
+        }
     }
+
+    // This method below means we don't have to use the child/descendant combinator, because we have assigned classes to the paragraph tags
+    const result2 = document.querySelector(".result");
+    result2.textContent = playRound(playerSelection, computerSelection); // textContent ALLOWS YOU TO CHANGE THE TEXT OF THE ELEMENT in the HTML directly!
+
+
 }
 
-game()
+
+// Adding a div to the body - THIS SOLVES YOUR CONFUSION ON HOW TO ADD A DIV TO THE BODY using appendChild!!!!
+
+// const div = document.createElement('div');
+// div.textContent = 'Hello World!';
+
+// document.body.appendChild(div);
+
+// const result = document.querySelector("div.display-result > p");
+// result.textContent = "Score: 68";
+// document.div.appendChild(result);
+
+// Game Event Listener
+const gameButton = document.querySelector(".play");
+gameButton.addEventListener("click", game);
+
+
+
+
+
